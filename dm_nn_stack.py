@@ -3,7 +3,8 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
-from sklearn.cross_validation import KFold
+# from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 from gensim.models import Doc2Vec
 from collections import OrderedDict
 

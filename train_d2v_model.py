@@ -8,7 +8,8 @@ from gensim.models import Doc2Vec
 from collections import OrderedDict
 import subprocess
 from sklearn.linear_model import LogisticRegression
-from sklearn.cross_validation import cross_val_score
+# from sklearn.cross_validation import cross_val_score      sklearn.cross_validation无法导入，原因是新版本中此包被废弃
+from sklearn.model_selection import cross_val_score
 import codecs
 import cfg
 import numpy as np

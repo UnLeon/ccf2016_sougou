@@ -6,7 +6,9 @@ import numpy as np
 import jieba
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
-from sklearn.cross_validation import StratifiedShuffleSplit,StratifiedKFold,cross_val_score
+# from sklearn.cross_validation import StratifiedShuffleSplit,StratifiedKFold,cross_val_score
+# sklearn.cross_validation无法导入，原因是新版本中此包被废弃
+from sklearn.model_selection import StratifiedShuffleSplit,StratifiedKFold,cross_val_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -16,19 +18,20 @@ import cfg
 
 #----------------------load data--------------------------------
 df_tr = []
-for i,line in enumerate(open(cfg.data_path + 'user_tag_query.10W.TRAIN',encoding='GB18030')):
-    segs = line.split('\t')
-    row = {}
-    row['Id'] = segs[0]
-    row['age'] = int(segs[1])
-    row['gender'] = int(segs[2])
-    row['Education'] = int(segs[3])
-    row['query'] = '\t'.join(segs[4:])
-    df_tr.append(row)
-df_tr = pd.DataFrame(df_tr)
+with open(cfg.data_path + 'user_tag_query.10W.TRAIN',encoding='UTF-8') as file:
+    for i,line in enumerate(file):
+        segs = line.split('\t')
+        row = {}
+        row['Id'] = segs[0]
+        row['age'] = int(segs[1])
+        row['gender'] = int(segs[2])
+        row['Education'] = int(segs[3])
+        row['query'] = '\t'.join(segs[4:])
+        df_tr.append(row)
+    df_tr = pd.DataFrame(df_tr)
 
 df_te=[]
-for i,line in enumerate(open(cfg.data_path + 'user_tag_query.10W.TEST',encoding='GB18030')):
+for i,line in enumerate(open(cfg.data_path + 'user_tag_query.10W.TEST',encoding='UTF-8')):    # GB18030
     segs = line.split('\t')
     row = {}
     row['Id'] = segs[0]

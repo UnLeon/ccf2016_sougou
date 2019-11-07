@@ -6,7 +6,8 @@ import jieba
 import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.cross_validation import KFold
+# from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 from datetime import datetime
 import cfg
 
