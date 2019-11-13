@@ -1,5 +1,5 @@
-'''1.concat train data and test data 
-   2.use lr to fill null label'''
+# '''1.concat train data and test data
+#    2.use lr to fill null label'''
 
 import pandas as pd
 import numpy as np
@@ -18,26 +18,29 @@ import cfg
 
 #----------------------load data--------------------------------
 df_tr = []
-with open(cfg.data_path + 'user_tag_query.10W.TRAIN',encoding='UTF-8') as file:
-    for i,line in enumerate(file):
+with open(cfg.data_path + 'user_tag_query.10W.TRAIN',encoding='UTF-8') as file1:
+    for i,line in enumerate(file1):
         segs = line.split('\t')
-        row = {}
+        print(segs)
+        row = dict()
         row['Id'] = segs[0]
         row['age'] = int(segs[1])
         row['gender'] = int(segs[2])
         row['Education'] = int(segs[3])
         row['query'] = '\t'.join(segs[4:])
+        print(row)
         df_tr.append(row)
     df_tr = pd.DataFrame(df_tr)
 
 df_te=[]
-for i,line in enumerate(open(cfg.data_path + 'user_tag_query.10W.TEST',encoding='UTF-8')):    # GB18030
-    segs = line.split('\t')
-    row = {}
-    row['Id'] = segs[0]
-    row['query'] = '\t'.join(segs[1:])
-    df_te.append(row)
-df_te = pd.DataFrame(df_te)
+with open(cfg.data_path + 'user_tag_query.10W.TEST',encoding='UTF-8') as file2:    # GB18030
+    for i,line in enumerate(file2):
+        segs = line.split('\t')
+        row = dict()
+        row['Id'] = segs[0]
+        row['query'] = '\t'.join(segs[1:])
+        df_te.append(row)
+    df_te = pd.DataFrame(df_te)
 
 print(df_tr.shape)
 print(df_te.shape)
